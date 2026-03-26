@@ -1,0 +1,12 @@
+{
+  "name": "flash-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for Flash USDT show-off",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.61.0"
+  }
+}
