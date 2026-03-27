@@ -349,7 +349,11 @@ ${users[chatId].details}`
   }).catch(() => {});
 }
 }
-// ---------------- BROADCAST ----------------
+
+// ✅ THIS WAS MISSING (CLOSE bot.on("message"))
+}
+
+// ---------------- BROADCAST ---------------------
 bot.onText(/\/broadcast (.+)/, (msg, match) => {
   if (msg.chat.id != ADMIN_ID) return;
 
