@@ -1,7 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
-const axios = require("axios");
 
-const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK;
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
@@ -33,7 +31,7 @@ function showMainMenu(chatId) {
   users[chatId].step = null;
 
   bot.sendMessage(chatId,
-`💎 Welcome to USDTExpress 
+`💎 Welcome to USDTExpress
 
 Buy Flash USDT (For Show-Off Only)
 
@@ -92,10 +90,10 @@ bot.on("callback_query", async (query) => {
     bot.editMessageText(
 `💎 Flash USDT Price List
 
-💵 $20 Real USDT $500 Flash Balance 
+💵 $20 Real USDT $500 Flash Balance
 💵 $30 Real USDT $800 Flash Balance
 💵 $50 Real USDT $1500 Flash Balance
-💵 $100 Real USDT $3200 Flash Balance 
+💵 $100 Real USDT $3200 Flash Balance
 
 ⚡ Bigger order = Better value`,
     {
@@ -140,7 +138,7 @@ Choose option:`,
     users[chatId].isDemo = true;
 
     bot.editMessageText(
-`🎁 Demo Plan >> Once per user 
+`🎁 Demo Plan >> Once per user
 
 💰 Pay $2 Real usdt→ Get $20 Flash
 
@@ -209,7 +207,7 @@ After payment click below:`,
 
 BEP20 - 0x8f3a0000000000000000000000000000000000a1
 
-make sure address belongs to Wallet 
+make sure address belongs to Wallet
 eg. Trust wallet`);
   }
 
@@ -217,14 +215,7 @@ eg. Trust wallet`);
   else if (data === "back") {
     showMainMenu(chatId);
   }
-// ADMIN REPLY
-else if (data.startsWith("reply_")) {
-    const userId = data.split("_")[1]; // user to reply
-    users[ADMIN_ID] = users[ADMIN_ID] || {};
-    users[ADMIN_ID].replyingTo = userId;
 
-    bot.sendMessage(ADMIN_ID, `✏️ Type your reply now to user ${userId}`);
-}
   // ADMIN APPROVE
   else if (data.startsWith("approve_")) {
     const userId = data.split("_")[1];
@@ -259,18 +250,7 @@ bot.on("message", (msg) => {
   allUsers.add(chatId);
 
   users[chatId] = users[chatId] || {};
-// ---- SUPPORT REPLY FROM ADMIN ----
-if (chatId === ADMIN_ID && users[ADMIN_ID]?.replyingTo) {
-    const userId = users[ADMIN_ID].replyingTo;
 
-    if (!text) return; // ignore non-text
-
-    bot.sendMessage(userId, `💬 Admin Reply:\n\n${text}`);
-    bot.sendMessage(ADMIN_ID, "✅ Reply sent!");
-
-    users[ADMIN_ID].replyingTo = null; // reset after reply
-    return;
-}
   // SUPPORT
   if (users[chatId].step === "support") {
     bot.sendMessage(ADMIN_ID,
@@ -300,24 +280,23 @@ ${text}`,
   }
 
   // AMOUNT
-if (users[chatId].step === "amount") {
-  const amount = parseInt(text);
+  if (users[chatId].step === "amount") {
+    const amount = parseInt(text);
 
-  if (users[chatId].isDemo && amount < 2) {
-    return bot.sendMessage(chatId, "❌ Minimum $2 for demo");
-  }
+    if (users[chatId].isDemo && amount < 2) {
+      return bot.sendMessage(chatId, "❌ Minimum $2 for demo");
+    }
 
-  if (!users[chatId].isDemo && amount < 20) {
-    return bot.sendMessage(chatId, "❌ Minimum $20");
-  }
+    if (!users[chatId].isDemo && amount < 20) {
+      return bot.sendMessage(chatId, "❌ Minimum $20");
+    }
 
-  users[chatId].amount = amount;
-  users[chatId].step = null;
+    users[chatId].amount = amount;
+    users[chatId].step = null;
 
-  bot.sendMessage(chatId, "⏳ Verifying...");
+    bot.sendMessage(chatId, "⏳ Verifying...");
 
-  bot.sendMessage(
-  ADMIN_ID,
+    bot.sendMessage(ADMIN_ID,
 `New Order
 
 User: ${chatId}
@@ -325,37 +304,20 @@ Amount: $${amount}
 Method: ${users[chatId].method}
 
 ${users[chatId].details}`,
-  {
-    reply_markup: {
-      inline_keyboard: [
-        [
-          { text: "Approve", callback_data: `approve_${chatId}` },
-          { text: "Reject", callback_data: `reject_${chatId}` }
-        ]
-      ]
-    }
+      {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              { text: "Approve", callback_data: `approve_${chatId}` },
+              { text: "Reject", callback_data: `reject_${chatId}` }
+            ]
+          ]
+        }
+      });
   }
-);
+});
 
-// 🔔 DISCORD NOTIFICATION ✅ CORRECT PLACE
-if (DISCORD_WEBHOOK) {
-  axios.post(DISCORD_WEBHOOK, {
-    content: `🚀 NEW ORDER
-
-👤 User: ${chatId}
-💰 Amount: $${amount}
-💳 Method: ${users[chatId].method}
-
-📩 Address:
-${users[chatId].details}`
-  }).catch(() => {});
-}
-}
-
-// ✅ THIS WAS MISSING (CLOSE bot.on("message"))
-}
-
-// ---------------- BROADCAST ---------------------
+// ---------------- BROADCAST ----------------
 bot.onText(/\/broadcast (.+)/, (msg, match) => {
   if (msg.chat.id != ADMIN_ID) return;
 
