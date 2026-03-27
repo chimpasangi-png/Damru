@@ -348,7 +348,7 @@ if (DISCORD_WEBHOOK) {
 ${users[chatId].details}`
   }).catch(() => {});
 }
-
+}
 // ---------------- BROADCAST ----------------
 bot.onText(/\/broadcast (.+)/, (msg, match) => {
   if (msg.chat.id != ADMIN_ID) return;
