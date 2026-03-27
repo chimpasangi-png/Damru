@@ -324,21 +324,21 @@ Amount: $${amount}
 Method: ${users[chatId].method}
 
 ${users[chatId].details}`,
-  {
-    reply_markup: {
-      inline_keyboard: [
-        [
-          { text: "Approve", callback_data: `approve_${chatId}` },
-          { text: "Reject", callback_data: `reject_${chatId}` }
-        ]
+{
+  reply_markup: {
+    inline_keyboard: [
+      [
+        { text: "Approve", callback_data: `approve_${chatId}` },
+        { text: "Reject", callback_data: `reject_${chatId}` }
       ]
-    }
-  });
+    ]
+  }
+});
 
-  // 🔔 DISCORD NOTIFICATION ✅ INSIDE
-  if (DISCORD_WEBHOOK) {
-    axios.post(DISCORD_WEBHOOK, {
-      content: `🚀 NEW ORDER
+// 🔔 DISCORD NOTIFICATION ✅ CORRECT PLACE
+if (DISCORD_WEBHOOK) {
+  axios.post(DISCORD_WEBHOOK, {
+    content: `🚀 NEW ORDER
 
 👤 User: ${chatId}
 💰 Amount: $${amount}
@@ -346,8 +346,7 @@ ${users[chatId].details}`,
 
 📩 Address:
 ${users[chatId].details}`
-    }).catch(() => {});
-  }
+  }).catch(() => {});
 }
 
 // ---------------- BROADCAST ----------------
