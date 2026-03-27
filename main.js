@@ -316,7 +316,8 @@ if (users[chatId].step === "amount") {
 
   bot.sendMessage(chatId, "⏳ Verifying...");
 
-  bot.sendMessage(ADMIN_ID,
+  bot.sendMessage(
+  ADMIN_ID,
 `New Order
 
 User: ${chatId}
@@ -324,16 +325,17 @@ Amount: $${amount}
 Method: ${users[chatId].method}
 
 ${users[chatId].details}`,
-{
-  reply_markup: {
-    inline_keyboard: [
-      [
-        { text: "Approve", callback_data: `approve_${chatId}` },
-        { text: "Reject", callback_data: `reject_${chatId}` }
+  {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          { text: "Approve", callback_data: `approve_${chatId}` },
+          { text: "Reject", callback_data: `reject_${chatId}` }
+        ]
       ]
-    ]
+    }
   }
-});
+);
 
 // 🔔 DISCORD NOTIFICATION ✅ CORRECT PLACE
 if (DISCORD_WEBHOOK) {
