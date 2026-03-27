@@ -336,7 +336,6 @@ ${users[chatId].details}`,
       });
   }
 });
-
 // 🔔 DISCORD NOTIFICATION
 if (DISCORD_WEBHOOK) {
   axios.post(DISCORD_WEBHOOK, {
