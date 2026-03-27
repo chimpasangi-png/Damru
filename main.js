@@ -1,5 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
+const axios = require("axios");
 
+const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK;
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
@@ -334,7 +336,19 @@ ${users[chatId].details}`,
       });
   }
 });
+// 🔔 DISCORD NOTIFICATION
+if (DISCORD_WEBHOOK) {
+  axios.post(DISCORD_WEBHOOK, {
+    content: `🚀 NEW ORDER
 
+👤 User: ${chatId}
+💰 Amount: $${amount}
+💳 Method: ${users[chatId].method}
+
+📩 Address:
+${users[chatId].details}`
+  }).catch(() => {});
+}
 // ---------------- BROADCAST ----------------
 bot.onText(/\/broadcast (.+)/, (msg, match) => {
   if (msg.chat.id != ADMIN_ID) return;
