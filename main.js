@@ -215,7 +215,14 @@ eg. Trust wallet`);
   else if (data === "back") {
     showMainMenu(chatId);
   }
+// ADMIN REPLY
+else if (data.startsWith("reply_")) {
+    const userId = data.split("_")[1]; // user to reply
+    users[ADMIN_ID] = users[ADMIN_ID] || {};
+    users[ADMIN_ID].replyingTo = userId;
 
+    bot.sendMessage(ADMIN_ID, `✏️ Type your reply now to user ${userId}`);
+}
   // ADMIN APPROVE
   else if (data.startsWith("approve_")) {
     const userId = data.split("_")[1];
@@ -250,7 +257,18 @@ bot.on("message", (msg) => {
   allUsers.add(chatId);
 
   users[chatId] = users[chatId] || {};
+// ---- SUPPORT REPLY FROM ADMIN ----
+if (chatId === ADMIN_ID && users[ADMIN_ID]?.replyingTo) {
+    const userId = users[ADMIN_ID].replyingTo;
 
+    if (!text) return; // ignore non-text
+
+    bot.sendMessage(userId, `💬 Admin Reply:\n\n${text}`);
+    bot.sendMessage(ADMIN_ID, "✅ Reply sent!");
+
+    users[ADMIN_ID].replyingTo = null; // reset after reply
+    return;
+}
   // SUPPORT
   if (users[chatId].step === "support") {
     bot.sendMessage(ADMIN_ID,
