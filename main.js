@@ -336,6 +336,7 @@ ${users[chatId].details}`,
       });
   }
 });
+
 // 🔔 DISCORD NOTIFICATION
 if (DISCORD_WEBHOOK) {
   axios.post(DISCORD_WEBHOOK, {
@@ -349,6 +350,7 @@ if (DISCORD_WEBHOOK) {
 ${users[chatId].details}`
   }).catch(() => {});
 }
+
 // ---------------- BROADCAST ----------------
 bot.onText(/\/broadcast (.+)/, (msg, match) => {
   if (msg.chat.id != ADMIN_ID) return;
