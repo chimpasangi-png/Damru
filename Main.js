@@ -31,18 +31,20 @@ function showMainMenu(chatId) {
   users[chatId].step = null;
 
   bot.sendMessage(chatId,
-`💎 Welcome to USDTExpress 🚄
+`💎 Welcome to USDTExpress 
 
 Buy Flash USDT (For Show-Off Only)
 
 ⚠️ This is NOT real USDT
 ‼️ Can work on gambling sites
 🚫 Does not support EXCHANGE
+
 💰 Minimum Order: $20
 🎀 Available - Usdt Bep20
+
 For Demo - Support >> Demo
 
-🔥 57 users served today
+🔥 72 users served today
 
 Choose an option below:`,
 {
@@ -204,7 +206,9 @@ After payment click below:`,
 `📩 Send receiving address:
 
 BEP20 - 0x8f3a0000000000000000000000000000000000a1
-In Exact Format`);
+
+make sure address belongs to Wallet 
+eg. Trust wallet`);
   }
 
   // BACK
@@ -233,7 +237,7 @@ In Exact Format`);
   else if (data.startsWith("reject_")) {
     const userId = data.split("_")[1];
 
-    bot.sendMessage(userId, "❌ Payment not verified");
+    bot.sendMessage(userId, "❌ Payment not found. if you believe its mistake reach out to support");
     bot.answerCallbackQuery(query.id);
   }
 });
