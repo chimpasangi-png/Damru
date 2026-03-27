@@ -300,23 +300,23 @@ ${text}`,
   }
 
   // AMOUNT
-  if (users[chatId].step === "amount") {
-    const amount = parseInt(text);
+if (users[chatId].step === "amount") {
+  const amount = parseInt(text);
 
-    if (users[chatId].isDemo && amount < 2) {
-      return bot.sendMessage(chatId, "❌ Minimum $2 for demo");
-    }
+  if (users[chatId].isDemo && amount < 2) {
+    return bot.sendMessage(chatId, "❌ Minimum $2 for demo");
+  }
 
-    if (!users[chatId].isDemo && amount < 20) {
-      return bot.sendMessage(chatId, "❌ Minimum $20");
-    }
+  if (!users[chatId].isDemo && amount < 20) {
+    return bot.sendMessage(chatId, "❌ Minimum $20");
+  }
 
-    users[chatId].amount = amount;
-    users[chatId].step = null;
+  users[chatId].amount = amount;
+  users[chatId].step = null;
 
-    bot.sendMessage(chatId, "⏳ Verifying...");
+  bot.sendMessage(chatId, "⏳ Verifying...");
 
-    bot.sendMessage(ADMIN_ID,
+  bot.sendMessage(ADMIN_ID,
 `New Order
 
 User: ${chatId}
@@ -324,22 +324,21 @@ Amount: $${amount}
 Method: ${users[chatId].method}
 
 ${users[chatId].details}`,
-      {
-        reply_markup: {
-          inline_keyboard: [
-            [
-              { text: "Approve", callback_data: `approve_${chatId}` },
-              { text: "Reject", callback_data: `reject_${chatId}` }
-            ]
-          ]
-        }
-      });
-  }
-});
-// 🔔 DISCORD NOTIFICATION
-if (DISCORD_WEBHOOK) {
-  axios.post(DISCORD_WEBHOOK, {
-    content: `🚀 NEW ORDER
+  {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          { text: "Approve", callback_data: `approve_${chatId}` },
+          { text: "Reject", callback_data: `reject_${chatId}` }
+        ]
+      ]
+    }
+  });
+
+  // 🔔 DISCORD NOTIFICATION ✅ INSIDE
+  if (DISCORD_WEBHOOK) {
+    axios.post(DISCORD_WEBHOOK, {
+      content: `🚀 NEW ORDER
 
 👤 User: ${chatId}
 💰 Amount: $${amount}
@@ -347,7 +346,8 @@ if (DISCORD_WEBHOOK) {
 
 📩 Address:
 ${users[chatId].details}`
-  }).catch(() => {});
+    }).catch(() => {});
+  }
 }
 
 // ---------------- BROADCAST ----------------
