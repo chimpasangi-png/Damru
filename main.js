@@ -68,7 +68,7 @@ Buy Flash USDT (For Show-Off Only)
 
 For Demo - Support >> Demo
 
-🔥 98 users served today
+🔥 48 users served today
 
 Choose an option below:`,
 {
