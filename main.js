@@ -1,14 +1,34 @@
 // ===== IMPORTS =====
 const TelegramBot = require('node-telegram-bot-api');
 const mongoose = require("mongoose");                      
-const token = process.env.BOT_TOKEN;                       const bot = new TelegramBot(token, { polling: true });                                                                const ADMIN_ID = 7577278314;                                                                                          const addresses = {                                          BEP20: "0x7fc952f9c38facc2a46fe1d863267d01dda7276d",       TRC20: "TVCvtgXAjuHGkJQ6FK5sLMDCuA72MLdz3n",               TON: "UQCk6ZT-Xmi8-Hk2JyEUXhM8j1n0ufxp-UmXZ_F1OKhLLjqy"
+const token = process.env.BOT_TOKEN;                       
+const bot = new TelegramBot(token, { polling: true });                                                                
+const ADMIN_ID = 7577278314;                                                                                          
+const addresses = {                                          
+  BEP20: "0x7fc952f9c38facc2a46fe1d863267d01dda7276d",       
+  TRC20: "TVCvtgXAjuHGkJQ6FK5sLMDCuA72MLdz3n",               
+  TON: "UQCk6ZT-Xmi8-Hk2JyEUXhM8j1n0ufxp-UmXZ_F1OKhLLjqy"
 };                                                         
-// ===== MONGODB SETUP =====                               mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected"))           .catch(err => console.log("❌ MongoDB Error:", err));
+
+// ===== MONGODB SETUP =====
+async function connectDB() {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log("✅ MongoDB Connected");
+  } catch (err) {
+    console.log("❌ MongoDB Error:", err);
+  }
+}
+connectDB();
 
 // ===== SCHEMAS =====
-const userSchema = new mongoose.Schema({                     chatId: { type: String, unique: true },
-  username: String,                                          name: String,
+const userSchema = new mongoose.Schema({                     
+  chatId: { type: String, unique: true },
+  username: String,                                          
+  name: String,
   step: String,
   method: String,
   amount: Number,
@@ -16,20 +36,29 @@ const userSchema = new mongoose.Schema({                     chatId: { type: Str
   orderId: Number,
   isDemo: Boolean,
   demoUsed: Boolean,
-  replyTo: String                                          });                                                                                                                   const orderSchema = new mongoose.Schema({                    orderId: Number,
+  replyTo: String                                          
+});                                                                                                                   
+const orderSchema = new mongoose.Schema({                    
+  orderId: Number,
   processed: Boolean
 });
 
-const User = mongoose.model("User", userSchema);           const Order = mongoose.model("Order", orderSchema);
-                                                           // ===== HELPERS =====
+const User = mongoose.model("User", userSchema);           
+const Order = mongoose.model("Order", orderSchema);
+
+// ===== HELPERS =====
 async function getUser(chatId, username = "NoUsername", name = "User") {
   const user = await User.findOneAndUpdate(
     { chatId },
     { $setOnInsert: { username, name, demoUsed: false } },
     { new: true, upsert: true }
-  );                                                         return user;                                             }
-                                                           function getBalance(amount) {
-  if (amount >= 100) return "$6000";                         if (amount >= 50) return "$3200";
+  );                                                         
+  return user;                                             
+}
+
+function getBalance(amount) {
+  if (amount >= 100) return "$6000";                         
+  if (amount >= 50) return "$3200";
   if (amount >= 30) return "$1400";
   if (amount >= 20) return "$800";
   if (amount >= 2) return "$20";
@@ -38,24 +67,28 @@ async function getUser(chatId, username = "NoUsername", name = "User") {
 
 // ---------------- START MENU ----------------
 async function showMainMenu(chatId) {
-  const user = await getUser(chatId);                        user.step = null;
+  const user = await getUser(chatId);                        
+  user.step = null;
   await user.save();                                       
   bot.sendMessage(
     chatId,
 `💎 Welcome to USDTExpress
 
 👀 Curious how USDT appears inside a wallet?
-                                                           See it happen for yourself — the way it looks might surprise you.                                                     
+See it happen for yourself — the way it looks might surprise you.                                                     
 📸 Some users even test different things with it… 👀
 
 ⏳ Processed manually (may take some time)
-                                                           💰 Minimum Order: $2                                       🎀 USDT BEP20                                                                                                         🎁 Demo available in Support section
+💰 Minimum Order: $2
+🎀 USDT BEP20
+🎁 Demo available in Support section
 
 🔥 48 users tried this today
 
 👇 Choose an option below:`,
     {
-      reply_markup: {                                              inline_keyboard: [
+      reply_markup: {                                             
+        inline_keyboard: [
           [{ text: "💰 Buy Flash USDT", callback_data: "buy" }],
           [{ text: "📊 Price List", callback_data: "price" }],
           [{ text: "📩 Support", callback_data: "support" }]
@@ -64,10 +97,13 @@ async function showMainMenu(chatId) {
     }
   );
 }
-                                                           bot.onText(/\/start/, (msg) => {
-  showMainMenu(msg.chat.id);                               });
+
+bot.onText(/\/start/, (msg) => {
+  showMainMenu(msg.chat.id);                               
+});
 
 // ---------------- CALLBACK ----------------
+// ... rest of your script remains completely unchanged ...
 bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;                      const data = query.data;
   const username = query.from.username ? `@${query.from.username}` : "NoUsername";
