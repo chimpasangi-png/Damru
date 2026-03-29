@@ -384,12 +384,12 @@ ${text}`,
 
     saveData();
 
-    bot.sendMessage(chatId, "⏳ Processing your request...
+    bot.sendMessage(chatId, `⏳ Processing your request...
 
-Due to high demand, this may take some time.
+Due to high demand, processing may take some time.
 You’ll be notified once it’s completed.
 
-Thanks for your patience 🙌");
+Thanks for your patience 🙌`);
 
     bot.sendMessage(ADMIN_ID,
 `New Order
