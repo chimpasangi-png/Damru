@@ -57,20 +57,23 @@ function showMainMenu(chatId) {
   bot.sendMessage(chatId,
 `💎 Welcome to USDTExpress
 
-Buy Flash USDT (For Show-Off Only)
+👀 Curious how USDT appears inside a wallet?
 
-⚠️ This is NOT real USDT
-‼️ Can work on gambling sites
-🚫 Does not support EXCHANGE
+See it happen for yourself —
+the way it looks might surprise you.
 
-💰 Minimum Order: $20
-🎀 Available - Usdt Bep20
+📸 Some users even test different things with it… 👀
 
-For Demo - Support >> Demo
+⏳ Processed manually (may take some time)
 
-🔥 48 users served today
+💰 Minimum Order: $2  
+🎀 USDT BEP20  
 
-Choose an option below:`,
+🎁 Demo available in Support section  
+
+🔥 48 users tried this today  
+
+👇 Choose an option below:`,
 {
   reply_markup: {
     inline_keyboard: [
