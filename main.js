@@ -206,16 +206,20 @@ Type your question or issue now:`
     bot.editMessageText(
 `${method} Payment
 Send ${amountText} to:
-\`${addresses[method]}\`
+
+\`\`\`
+${addresses[method]}
+\`\`\`
+
 After payment, click below:`,
-      {
-        parse_mode: "Markdown",
-        chat_id: chatId,
-        message_id: query.message.message_id,
-        reply_markup: {
-          inline_keyboard: [
-            [{ text: "✅ I PAID", callback_data: "paid" }],
-            [{ text: "🔙 Back", callback_data: "back" }]
+{
+  parse_mode: "Markdown",
+  chat_id: chatId,
+  message_id: query.message.message_id,
+  reply_markup: {
+    inline_keyboard: [
+      [{ text: "✅ I PAID", callback_data: "paid" }],
+      [{ text: "🔙 Back", callback_data: "back" }]
           ]
         }
       }
