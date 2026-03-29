@@ -203,23 +203,13 @@ Type your question or issue now:`
     await user.save();
     let amountText = user.isDemo ? "$2" : "$20+";
 
-    bot.editMessageText(
-`${method} Payment
-Send ${amountText} to:
-
-\`\`\`
-${addresses[method]}
-\`\`\`
-
-After payment, click below:`,
-{
-  parse_mode: "Markdown",
-  chat_id: chatId,
-  message_id: query.message.message_id,
-  reply_markup: {
-    inline_keyboard: [
-      [{ text: "✅ I PAID", callback_data: "paid" }],
-      [{ text: "🔙 Back", callback_data: "back" }]
+    bot.editMessageText(                                   `${method} Payment                                         Send ${amountText} to:                                     \`${addresses[method]}\`                                   
+After payment click below:`,
+      {
+        parse_mode: "Markdown",
+        chat_id: chatId,                                           message_id: query.message.message_id,
+        reply_markup: {                                              inline_keyboard: [                                           [{ text: "✅ I PAID", callback_data: "paid" }],
+            [{ text: "🔙 Back", callback_data: "back" }]
           ]
         }
       }
@@ -233,7 +223,7 @@ After payment, click below:`,
 TXID  - 0x2d3d7abb690bbc65a45cea897667a3bea80bd55bd309517e189b7458bab74d03
 BEP20 - 0x8f3a0000000000000000000000000000000000a1
 
-Make sure the address belongs to wallet.
+Make sure address belongs to wallet.
 Trust Wallet or Binance Web3.`
     );
   } else if (data === "back") {
