@@ -381,7 +381,12 @@ ${text}`,
 
     saveData();
 
-    bot.sendMessage(chatId, "⏳ Verifying...");
+    bot.sendMessage(chatId, "⏳ Processing your request...
+
+Due to high demand, this may take some time.
+You’ll be notified once it’s completed.
+
+Thanks for your patience 🙌");
 
     bot.sendMessage(ADMIN_ID,
 `New Order
