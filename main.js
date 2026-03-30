@@ -71,17 +71,15 @@ async function showMainMenu(chatId) {
 Buy Flash USDT (Demo Available)
 
 ⚠️ This is NOT real USDT  
-‼️ Works on selected platforms  
+‼️ Can work on gambling site
 🚫 Not supported on exchanges  
-
-👀 Looks exactly like real USDT inside wallet
 
 💰 Minimum Order: $20  
 🎀 Network: BEP20  
 
 🎁 Demo available in Support  
 
-🔥 58 users tried this today  
+🔥 81 users tried this today  
 
 👇 Choose an option below:`,
     {
