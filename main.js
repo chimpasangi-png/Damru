@@ -68,20 +68,21 @@ async function showMainMenu(chatId) {
   bot.sendMessage(chatId,
 `💎 Welcome to USDTExpress
 
-👀 Curious how USDT appears inside a wallet?
+Buy Flash USDT (Demo Available)
 
-See it happen for yourself — the way it looks might surprise you.
+⚠️ This is NOT real USDT  
+‼️ Works on selected platforms  
+🚫 Not supported on exchanges  
 
-📸 Some users even test different things with it… 👀
+👀 Looks exactly like real USDT inside wallet
 
-⏳ Processed manually (may take some time)
+💰 Minimum Order: $20  
+🎀 Network: BEP20  
 
-💰 Minimum Order: $2
-🎀 USDT BEP20
+🎁 Demo available in Support  
 
-🎁 Demo available in Support section
+🔥 58 users tried this today  
 
-🔥 48 users tried this today
 👇 Choose an option below:`,
     {
       reply_markup: {
