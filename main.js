@@ -51,11 +51,11 @@ async function getUser(chatId, username = "NoUsername", name = "User") {
 }
 
 function getBalance(amount) {
-  if (amount >= 100) return "$6000";
-  if (amount >= 50) return "$3200";
-  if (amount >= 30) return "$1400";
-  if (amount >= 20) return "$800";
-  if (amount >= 2) return "$20";
+  if (amount >= 140) return "$6000";
+  if (amount >= 80) return "$3200";
+  if (amount >= 45) return "$1400";
+  if (amount >= 30) return "$800";
+  if (amount >= 5) return "$20";
   return null;
 }
 
@@ -74,7 +74,7 @@ Buy Flash USDT (Demo Available)
 ‼️ Can work on gambling site
 🚫 Not supported on exchanges  
 
-💰 Minimum Order: $20  
+💰 Minimum Order: $30  
 🎀 Network: BEP20  
 
 🎁 Demo available in Support  
@@ -130,10 +130,10 @@ Send $20 or more:`,
   } else if (data === "price") {
     bot.editMessageText(
 `💎 Flash USDT Price List
-💵 $20 Real USDT → $800 Flash Balance
-💵 $30 Real USDT → $1400 Flash Balance
-💵 $50 Real USDT → $3200 Flash Balance
-💵 $100 Real USDT → $6000 Flash Balance
+💵 $30 Real USDT → $800 Flash Balance
+💵 $45 Real USDT → $1400 Flash Balance
+💵 $80 Real USDT → $3200 Flash Balance
+💵 $140 Real USDT → $6000 Flash Balance
 
 ⚡ Many people go for $3200 Flash`,
       {
@@ -170,7 +170,7 @@ Choose option:`,
 
     bot.editMessageText(
 `🎁 Demo Plan >> Once per user
-💰 Pay $2 Real USDT → Get $20 Flash
+💰 Pay $5 Real USDT → Get $20 Flash
 
 Choose payment method:`,
       {
@@ -327,8 +327,8 @@ ${text}`,
   if (user.step === "amount") {
     const amount = parseInt(text);
     if (isNaN(amount) || amount <= 0) return bot.sendMessage(chatId, "❌ Please enter a valid number");
-    if (user.isDemo && amount < 2) return bot.sendMessage(chatId, "❌ Minimum $2 for demo");
-    if (!user.isDemo && amount < 20) return bot.sendMessage(chatId, "❌ Minimum $20");
+    if (user.isDemo && amount < 5) return bot.sendMessage(chatId, "❌ Minimum $5 for demo");
+    if (!user.isDemo && amount < 30) return bot.sendMessage(chatId, "❌ Minimum $30");
 
     user.amount = amount;
     user.orderId = Date.now() + Math.floor(Math.random() * 1000);
