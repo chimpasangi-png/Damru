@@ -74,7 +74,7 @@ Buy Flash USDT (Demo Available)
 ‼️ Can work on gambling site
 🚫 Not supported on exchanges  
 
-💰 Minimum Order: 2/20$  
+💰 Minimum Order: 20$  
 🎀 Network: BEP20 | TRC20
 
 🎁 Demo available in Support, not for trc20 
