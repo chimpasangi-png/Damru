@@ -75,11 +75,11 @@ Buy Flash USDT (Demo Available)
 🚫 Not supported on exchanges  
 
 💰 Minimum Order: 2/20$  
-🎀 Network: BEP20  
+🎀 Network: BEP20 | TRC20
 
-🎁 Demo available in Support  
+🎁 Demo available in Support, not for trc20 
 
-🔥 71 users tried this today  
+🔥 55 users tried this today  
 
 👇 Choose an option below:`,
     {
@@ -129,11 +129,13 @@ Send $20 or more:`,
     );
   } else if (data === "price") {
     bot.editMessageText(
-`💎 Flash USDT Price List
+`💎 Flash USDT Price List BEP20
 💵 $20 Real USDT → $1000 Flash Balance
 💵 $30 Real USDT → $1600 Flash Balance
 💵 $50 Real USDT → $3200 Flash Balance
 💵 $100 Real USDT → $6500 Flash Balance
+🔺 TRC20 --> 4% RATE, MINIMUM buy 1k 
+💵 $40 Real USDT → $1000 Flash Balance 
 
 ⚡ Many people go for $3200 Flash`,
       {
