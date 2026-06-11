@@ -134,8 +134,11 @@ Send $20 or more:`,
 💵 $30 Real USDT → $1600 Flash Balance
 💵 $50 Real USDT → $3200 Flash Balance
 💵 $100 Real USDT → $6500 Flash Balance
-🔺 TRC20 --> 4% RATE, MINIMUM buy 1k 
+
+🔺 Flash USDT Price List TRC20 -->  
 💵 $40 Real USDT → $1000 Flash Balance 
+💵 $80 Real usdt → $3200 Flash Balance 
+💵 $120 Real usdt → $5000 Flash Balance
 
 ⚡ Many people go for $3200 Flash`,
       {
